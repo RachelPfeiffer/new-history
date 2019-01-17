@@ -6,7 +6,8 @@ return response.json();
 // only display entries from 1 week ago and up.
 
 let now = new Date();
-let oneWeekAgo = (now - 605800000);
+let oneWeek = 1000*60*60*24*7;
+let oneWeekAgo = (now - oneWeek);
 
 function displayTime(x) {
   const visitStamp = new Date(x);
@@ -29,9 +30,11 @@ function fillMainPage(stuff) {
   const listSection = document.createElement('table');
   const body = document.querySelector('body');
   body.appendChild(listSection);
+  const testdiv = document.createElement('div');
+  testdiv.innerText = "this is just a test";
+  body.appendChild(testdiv);
   for (entry of stuff) {
-  const timeDiff = oneWeekAgo - entry.lastVisitTime;
-  if (timeDiff < 0) {
+  if (entry.lastVisitTime > oneWeekAgo) {
     const newRow = document.createElement('tr');
     const timeBox = document.createElement('td');
     timeBox.innerText = displayTime(entry.lastVisitTime);
